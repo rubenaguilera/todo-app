@@ -1,22 +1,26 @@
-const todos = (state = [], action) => {
+import {
+  REQUEST_TODOS,
+  RECEIVE_TODOS
+} from '../actions/types';
+
+const todos = (state = {
+  isFetching: false,
+  items: []
+}, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [
+    case REQUEST_TODOS:
+      return {
         ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
-      ];
-    case 'TOGGLE_TODO':
-      return state.map(todo =>
-        (todo.id === action.id)
-          ? {...todo, completed: !todo.completed}
-          : todo
-      );
+        isFetching: true
+      };
+    case RECEIVE_TODOS:
+      return {
+        ...state,
+        isFetching: false,
+        items: action.payload,
+      };
     default:
-      return state;
+      return state
   }
 };
 

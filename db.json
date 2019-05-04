@@ -1,0 +1,22 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "text": "do something",
+      "state": "TODO",
+      "due_date": "01-05-2019"
+    },
+    {
+      "id": 2,
+      "text": "do something else",
+      "state": "TODO",
+      "due_date": "05-05-2019"
+    },
+    {
+      "id": 3,
+      "text": "something already done",
+      "state": "DONE",
+      "due_date": "11-05-2019"
+    }
+  ]
+}
