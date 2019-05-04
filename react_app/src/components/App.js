@@ -4,7 +4,8 @@ import '../style/App.css';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import TodoList from './TodoList';
+import Router from './Router';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
         </Toolbar>
       </AppBar>
       <div className="container">
-        <TodoList/>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
       </div>
     </div>
   );

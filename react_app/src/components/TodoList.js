@@ -1,7 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import MaterialTable from 'material-table';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import { withStyles } from '@material-ui/core/styles';
 import { fetchTodos } from '../actions/index';
+
+const styles = theme => ({
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  }
+});
 
 class TodoList extends React.Component{
   componentDidMount() {
@@ -9,6 +21,10 @@ class TodoList extends React.Component{
   }
 
   removeSelectedTodos(data) {
+    console.log(data);
+  }
+
+  toggleSelectedTodos(data) {
     console.log(data);
   }
 
@@ -29,7 +45,7 @@ class TodoList extends React.Component{
       },
       {
         title: 'Due date',
-        field: 'due_date'
+        field: 'dueDate'
       }
     ];
 
@@ -41,10 +57,21 @@ class TodoList extends React.Component{
         tooltip: 'Remove Selected TODOS',
         icon: 'delete',
         onClick: (evt, data) => this.removeSelectedTodos(data)
+      },
+      {
+        tooltip: 'Toggle TODOS state',
+        icon: 'cached',
+        onClick: (evt, data) => this.toggleSelectedTodos(data)
       }
     ];
+    const { classes } = this.props;
     return (
       <div>
+        <Link to="/todos/new">
+          <Fab color="primary" aria-label="Add TODO" className={classes.fab} >
+            <AddIcon />
+          </Fab>
+        </Link>
         <MaterialTable
           data={this.props.todos.items}
           columns={columns}
@@ -64,4 +91,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(TodoList);
+export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(TodoList));
