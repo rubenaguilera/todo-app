@@ -6,6 +6,10 @@ class Api {
 		return axios.get(`${API_URL}/todos`);
 	}
 
+	static getTodo(id) {
+		return axios.get(`${API_URL}/todos/${id}`);
+	}
+
 	static postTodo(data) {
 		return axios.post(`${API_URL}/todos`, data);
 	}

@@ -2,8 +2,11 @@ import {
   ADD_TODO,
   TOGGLE_TODO,
   REQUEST_TODOS,
+  REQUEST_TODO,
   RECEIVE_TODOS,
-  REQUEST_ADD_TODO
+  RECEIVE_TODO,
+  REQUEST_ADD_TODO,
+	CLEAN_SELECTED_TODO
 } from './types';
 import Api from '../components/Api';
 
@@ -11,9 +14,22 @@ const requestTodos = () => ({
   type: REQUEST_TODOS
 });
 
+const requestTodo = () => ({
+	type: REQUEST_TODO
+});
+
 const receiveTodos = (data) => ({
   type: RECEIVE_TODOS,
   payload: data
+});
+
+const receiveTodo = (data) => ({
+	type: RECEIVE_TODO,
+	payload: data
+});
+
+export const cleanSelectedTodo = () => ({
+	type: CLEAN_SELECTED_TODO
 });
 
 const requestAddTodo = () => ({
@@ -44,6 +60,18 @@ export const fetchTodos = () => {
       })
       .catch(error => console.error(`Error fetching todos: ${error}`));
   };
+};
+
+export const fetchTodo = (id) => {
+	return dispatch => {
+		dispatch(requestTodo());
+		return Api.getTodo(id)
+			.then(response => {
+				console.log(response.data)
+				dispatch(receiveTodo(response.data));
+			})
+			.catch(error => console.error(`Error fetching todo: ${error}`));
+	};
 };
 
 export const saveTodo = (todo) => {

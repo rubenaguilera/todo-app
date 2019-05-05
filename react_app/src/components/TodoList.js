@@ -5,8 +5,9 @@ import MaterialTable from 'material-table';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
-import { fetchTodos } from '../actions/index';
 import moment from 'moment';
+import { fetchTodos } from '../actions/index';
+import { todoTableStyle } from '../shared/TableStyles';
 
 const styles = theme => ({
   fab: {
@@ -17,6 +18,11 @@ const styles = theme => ({
 });
 
 class TodoList extends React.Component{
+  constructor(props) {
+    super(props);
+    this.onRowClicked = this.onRowClicked.bind(this);
+  }
+
   componentDidMount() {
     this.props.dispatch(fetchTodos());
   }
@@ -27,6 +33,10 @@ class TodoList extends React.Component{
 
   toggleSelectedTodos(data) {
     console.log(data);
+  }
+
+  onRowClicked(event, rowData) {
+    this.props.history.push(`/todos/${rowData.id}`);
   }
 
   sortTodos(todos) {
@@ -46,29 +56,18 @@ class TodoList extends React.Component{
       {
         title: 'Todo content',
         field: 'text',
-        cellStyle: {
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis'
-        },
-        headerStyle: {
-          width: '50%'
-        },
-        className: 'test-class'
+        cellStyle: todoTableStyle.cellStyle.text,
+        headerStyle: todoTableStyle.headerStyle.text
       },
       {
         title: 'State',
         field: 'state',
-        headerStyle: {
-          width: '25%'
-        }
+        headerStyle: todoTableStyle.headerStyle.state
       },
       {
         title: 'Due date',
         field: 'dueDate',
-        headerStyle: {
-          width: '25%'
-        }
+        headerStyle: todoTableStyle.headerStyle.dueDate
       }
     ];
 
@@ -103,6 +102,7 @@ class TodoList extends React.Component{
           title="TODOS"
           options={options}
           actions={actions}
+          onRowClick={this.onRowClicked}
         />
       </div>
     );

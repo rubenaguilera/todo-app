@@ -1,8 +1,10 @@
 import {
   REQUEST_TODOS,
+  REQUEST_TODO,
   RECEIVE_TODOS,
+  RECEIVE_TODO,
   REQUEST_ADD_TODO,
-  ADD_TODO
+  ADD_TODO, CLEAN_SELECTED_TODO
 } from '../actions/types';
 
 const todos = (state = {
@@ -10,7 +12,7 @@ const todos = (state = {
   items: []
 }, action) => {
   switch (action.type) {
-    case REQUEST_TODOS:
+    case REQUEST_TODOS || REQUEST_TODO:
       return {
         ...state,
         isFetching: true
@@ -20,6 +22,17 @@ const todos = (state = {
         ...state,
         isFetching: false,
         items: action.payload,
+      };
+    case RECEIVE_TODO:
+      return {
+        ...state,
+        isFetching: false,
+        selectedTodo: action.payload,
+      };
+    case CLEAN_SELECTED_TODO:
+      return {
+        ...state,
+        selectedTodo: {},
       };
     case REQUEST_ADD_TODO:
       return {

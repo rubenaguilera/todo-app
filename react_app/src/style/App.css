@@ -1,19 +1,28 @@
 .container {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .title-centered {
-  text-align: center;
+    text-align: center;
 }
 
 tr th:first-child {
-  width: 40px;
+    width: 40px;
 }
 
 table {
-  table-layout: fixed;
+    table-layout: fixed;
 }
 
 td {
-  padding-right: 24px !important;
+    padding-right: 24px !important;
+}
+
+button {
+    z-index: 9999;
+}
+
+tbody tr:hover {
+    background-color: rgba(63, 81, 181, 0.08);
+    cursor: pointer;
 }
