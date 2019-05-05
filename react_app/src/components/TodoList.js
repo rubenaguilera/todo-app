@@ -6,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
+import BlockUi from 'react-block-ui';
 import { fetchTodos } from '../actions/index';
 import { todoTableStyle } from '../shared/TableStyles';
 
@@ -95,15 +96,16 @@ class TodoList extends React.Component{
             <AddIcon />
           </Fab>
         </Link>
-        <MaterialTable
-          data={this.sortTodos(this.props.todos.items)}
-          columns={columns}
-          isLoading={this.props.todos.isFetching}
-          title="TODOS"
-          options={options}
-          actions={actions}
-          onRowClick={this.onRowClicked}
-        />
+        <BlockUi tag="div" blocking={this.props.todos.isFetching}>
+          <MaterialTable
+            data={this.sortTodos(this.props.todos.items)}
+            columns={columns}
+            title="TODOS"
+            options={options}
+            actions={actions}
+            onRowClick={this.onRowClicked}
+          />
+        </BlockUi>
       </div>
     );
   }

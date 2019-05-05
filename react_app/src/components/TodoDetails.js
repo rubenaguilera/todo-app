@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import BlockUi from 'react-block-ui';
 import { fetchTodo, cleanSelectedTodo } from '../actions/index';
 
 class TodoDetails extends React.Component {
@@ -32,44 +33,50 @@ class TodoDetails extends React.Component {
 			<Grid container spacing={8} justify="center">
 				<Grid item xs={12} lg={4}>
 					<Card>
-						<CardContent className="form-card">
-							<Typography variant="h4" gutterBottom className="title-centered">
-								TODO Details
-							</Typography>
-							<Divider/>
-							{
-								this.props.todo.text ? (
-									<form noValidate autoComplete="off">
-										<Grid container spacing={0}>
-											<Grid item xs={12}>
-												<TextField
-													id="text"
-													label="TODO content"
-													multiline
-													rows="3"
-													defaultValue={this.props.todo.text}
-													margin="normal"
-													variant="outlined"
-													fullWidth
-													disabled
-												/>
+						<BlockUi tag="div" blocking={!this.props.todo.text}>
+							<CardContent className="form-card">
+								<Typography variant="h4" gutterBottom className="title-centered">
+									TODO Details
+								</Typography>
+								<Divider/>
+								{
+									this.props.todo.text ? (
+										<form noValidate autoComplete="off">
+											<Grid container spacing={0}>
+												<Grid item xs={12}>
+													<TextField
+														id="text"
+														label="TODO content"
+														multiline
+														rows="3"
+														defaultValue={this.props.todo.text}
+														margin="normal"
+														variant="outlined"
+														fullWidth
+														disabled
+													/>
+												</Grid>
+												<Grid item xs={8} lg={4} md={6}>
+													<TextField
+														id="text"
+														label="Due date"
+														defaultValue={this.props.todo.dueDate}
+														margin="normal"
+														variant="outlined"
+														fullWidth
+														disabled
+													/>
+												</Grid>
 											</Grid>
-											<Grid item xs={8} lg={4} md={6}>
-												<TextField
-													id="text"
-													label="Due date"
-													defaultValue={this.props.todo.dueDate}
-													margin="normal"
-													variant="outlined"
-													fullWidth
-													disabled
-												/>
-											</Grid>
-										</Grid>
-									</form>
-								) : ''
-							}
-						</CardContent>
+										</form>
+									) : (
+										<div style={{height: '200px'}}>
+
+										</div>
+									)
+								}
+							</CardContent>
+						</BlockUi>
 						<CardActions>
 							<Grid container spacing={0} justify="flex-end">
 								<Button size="small" color="primary" onClick={this.redirectToList}>

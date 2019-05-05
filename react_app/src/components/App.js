@@ -1,6 +1,7 @@
 import React from 'react';
 import 'material-design-icons/iconfont/material-icons.css';
 import '../style/App.css';
+import 'react-block-ui/style.css';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
