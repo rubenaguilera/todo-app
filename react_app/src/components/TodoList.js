@@ -6,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import { fetchTodos } from '../actions/index';
+import moment from 'moment';
 
 const styles = theme => ({
   fab: {
@@ -28,6 +29,13 @@ class TodoList extends React.Component{
     console.log(data);
   }
 
+  sortTodos(todos) {
+    const compare = (todoA, todoB) => {
+      return moment(todoA.dueDate, 'DD-MM-YYYY') < moment(todoB.dueDate, 'DD-MM-YYYY') ? 1: -1;
+    };
+    return todos.sort(compare);
+  }
+
   render() {
     const columns = [
       {
@@ -37,20 +45,36 @@ class TodoList extends React.Component{
       },
       {
         title: 'Todo content',
-        field: 'text'
+        field: 'text',
+        cellStyle: {
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        },
+        headerStyle: {
+          width: '50%'
+        },
+        className: 'test-class'
       },
       {
         title: 'State',
-        field: 'state'
+        field: 'state',
+        headerStyle: {
+          width: '25%'
+        }
       },
       {
         title: 'Due date',
-        field: 'dueDate'
+        field: 'dueDate',
+        headerStyle: {
+          width: '25%'
+        }
       }
     ];
 
     const options = {
-      selection: true
+      selection: true,
+			toolbarButtonAlignment: 'left'
     };
     const actions=[
       {
@@ -73,7 +97,7 @@ class TodoList extends React.Component{
           </Fab>
         </Link>
         <MaterialTable
-          data={this.props.todos.items}
+          data={this.sortTodos(this.props.todos.items)}
           columns={columns}
           isLoading={this.props.todos.isFetching}
           title="TODOS"

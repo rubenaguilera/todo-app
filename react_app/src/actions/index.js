@@ -5,7 +5,6 @@ import {
   RECEIVE_TODOS,
   REQUEST_ADD_TODO
 } from './types';
-import { TODO_STATE_TODO } from '../shared/Constants';
 import Api from '../components/Api';
 
 const requestTodos = () => ({

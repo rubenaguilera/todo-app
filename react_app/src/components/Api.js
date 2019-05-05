@@ -3,7 +3,6 @@ import { API_URL } from '../config';
 
 class Api {
 	static getTodos() {
-		console.log('get');
 		return axios.get(`${API_URL}/todos`);
 	}
 

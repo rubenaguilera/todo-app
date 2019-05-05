@@ -13,7 +13,7 @@ import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { saveTodo } from '../actions/index';
 import { TODO_STATE_TODO } from '../shared/Constants';
 
-class AddTodo extends React.Component{
+class AddTodo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -33,11 +33,13 @@ class AddTodo extends React.Component{
 	}
 
 	handleDateChange(date) {
-		this.setState({ dueDate: date.format('DD-MM-YYYY') });
+		this.setState({ dueDate: date });
 	}
 
 	saveTodo() {
-		this.props.dispatch(saveTodo(this.state));
+		const todo = this.state;
+		todo.dueDate = todo.dueDate.format('DD-MM-YYYY');
+		this.props.dispatch(saveTodo(todo));
 		this.redirectToList();
 	}
 
