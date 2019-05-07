@@ -11,7 +11,7 @@ import { BrowserRouter } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="h6" color="inherit">
             TODO APP

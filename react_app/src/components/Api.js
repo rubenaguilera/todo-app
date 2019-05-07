@@ -27,8 +27,8 @@ class Api {
 		//TODO: handle this
 	}
 
-	static deleteTodos(todos) {
-		//TODO: handle this
+	static deleteTodos(ids) {
+		return Promise.resolve();
 	}
 
 }

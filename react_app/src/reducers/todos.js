@@ -4,6 +4,7 @@ import {
   RECEIVE_TODOS,
   RECEIVE_TODO,
   REQUEST_ADD_TODO,
+  REQUEST_DELETE_TODOS,
   ADD_TODO, CLEAN_SELECTED_TODO
 } from '../actions/types';
 
@@ -12,7 +13,7 @@ const todos = (state = {
   items: []
 }, action) => {
   switch (action.type) {
-    case REQUEST_TODOS || REQUEST_TODO:
+    case REQUEST_TODOS || REQUEST_TODO || REQUEST_DELETE_TODOS:
       return {
         ...state,
         isFetching: true

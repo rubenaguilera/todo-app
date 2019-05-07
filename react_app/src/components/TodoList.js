@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableBodyRow, MTableToolbar } from 'material-table';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import BlockUi from 'react-block-ui';
-import { fetchTodos } from '../actions/index';
+import { fetchTodos, deleteTodos } from '../actions/index';
 import { todoTableStyle } from '../shared/TableStyles';
+import { TODO_STATE_DONE } from '../shared/Constants';
 
 const styles = theme => ({
   fab: {
@@ -29,7 +30,9 @@ class TodoList extends React.Component{
   }
 
   removeSelectedTodos(data) {
-    console.log(data);
+    const ids = data.map(todo => todo.id);
+    console.log(ids);
+    this.props.dispatch(deleteTodos(ids));
   }
 
   toggleSelectedTodos(data) {
@@ -45,6 +48,19 @@ class TodoList extends React.Component{
       return moment(todoA.dueDate, 'DD-MM-YYYY') < moment(todoB.dueDate, 'DD-MM-YYYY') ? 1: -1;
     };
     return todos.sort(compare);
+  }
+
+  rowOverride(props) {
+    let className = '';
+    if (moment(props.data.dueDate, 'DD-MM-YYYY') > moment() && props.data.state !== TODO_STATE_DONE) {
+      className = 'table-row-red-highlight';
+    } else if(props.data.state === TODO_STATE_DONE) {
+      className = 'table-row-green-highlight';
+    }
+
+    return (
+      <MTableBodyRow {...props} className={className}/>
+    );
   }
 
   render() {
@@ -104,6 +120,14 @@ class TodoList extends React.Component{
             options={options}
             actions={actions}
             onRowClick={this.onRowClicked}
+            components={{
+              Row: this.rowOverride,
+              Toolbar: props => (
+                <div className={props.selectedRows.length ? 'toolbar-selected-rows' : ''}>
+                  <MTableToolbar {...props}/>
+                </div>
+              )
+            }}
           />
         </BlockUi>
       </div>

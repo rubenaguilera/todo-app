@@ -6,6 +6,34 @@
     text-align: center;
 }
 
+.table-row-red-highlight {
+    background-color: #ffebee;
+}
+
+.table-row-red-highlight:hover {
+    background-color: #ffcdd2 !important;
+}
+
+.table-row-red-highlight td {
+    color: #d50000 !important;
+}
+
+.table-row-green-highlight td {
+    color: #00bfa5 !important;
+}
+
+.table-row-green-highlight {
+    background-color: #e0f2f1;
+}
+
+.table-row-green-highlight:hover {
+    background-color: #b2dfdb !important;
+}
+
+.toolbar-selected-rows div {
+    background-color: #eeeeee;
+}
+
 tr th:first-child {
     width: 40px;
 }

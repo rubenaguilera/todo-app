@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -11,7 +14,11 @@ import Divider from '@material-ui/core/Divider';
 import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { saveTodo } from '../actions/index';
-import { TODO_STATE_TODO } from '../shared/Constants';
+import {
+	TODO_STATE_TODO,
+	TODO_STATE_DONE,
+	TODO_STATE_IN_PROGRESS
+} from '../shared/Constants';
 
 class AddTodo extends React.Component {
 	constructor(props) {
@@ -58,7 +65,7 @@ class AddTodo extends React.Component {
 							</Typography>
 							<Divider/>
 							<form noValidate autoComplete="off">
-								<Grid container spacing={0}>
+								<Grid container spacing={8}>
 									<Grid item xs={12}>
 										<TextField
 											id="text"
@@ -73,10 +80,28 @@ class AddTodo extends React.Component {
 											fullWidth
 										/>
 									</Grid>
-									<Grid item xs={8} lg={4} md={6}>
+									<Grid item xs={8} md lg>
+										<Select
+											variant="outlined"
+											value={this.state.state}
+											onChange={(event) => this.handleInputChange(event)}
+											input={
+												<OutlinedInput
+													labelWidth={0}
+													name="state"
+													id="state"
+													fullWidth
+												/>
+											}
+										>
+											<MenuItem value={TODO_STATE_TODO}>{TODO_STATE_TODO}</MenuItem>
+											<MenuItem value={TODO_STATE_IN_PROGRESS}>{TODO_STATE_IN_PROGRESS}</MenuItem>
+											<MenuItem value={TODO_STATE_DONE}>{TODO_STATE_DONE}</MenuItem>
+										</Select>
+									</Grid>
+									<Grid item xs={8} lg md>
 										<MuiPickersUtilsProvider utils={MomentUtils}>
 											<DatePicker
-												margin="normal"
 												label="Due date"
 												format="DD-MM-YYYY"
 												value={this.state.dueDate}

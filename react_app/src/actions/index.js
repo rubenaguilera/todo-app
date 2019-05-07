@@ -5,6 +5,7 @@ import {
   REQUEST_TODO,
   RECEIVE_TODOS,
   RECEIVE_TODO,
+	REQUEST_DELETE_TODOS,
   REQUEST_ADD_TODO,
 	CLEAN_SELECTED_TODO
 } from './types';
@@ -26,6 +27,11 @@ const receiveTodos = (data) => ({
 const receiveTodo = (data) => ({
 	type: RECEIVE_TODO,
 	payload: data
+});
+
+const requestDeleteTodos = (ids) => ({
+	type: REQUEST_DELETE_TODOS,
+	payload: ids
 });
 
 export const cleanSelectedTodo = () => ({
@@ -67,7 +73,6 @@ export const fetchTodo = (id) => {
 		dispatch(requestTodo());
 		return Api.getTodo(id)
 			.then(response => {
-				console.log(response.data)
 				dispatch(receiveTodo(response.data));
 			})
 			.catch(error => console.error(`Error fetching todo: ${error}`));
@@ -79,9 +84,19 @@ export const saveTodo = (todo) => {
     dispatch(requestAddTodo());
     return Api.postTodo(todo)
       .then(response => {
-        console.log(response);
         dispatch(addTodo(response.data));
       })
       .catch(error => console.error(`Error saving todo: ${error}`));
   };
+};
+
+export const deleteTodos = (ids) => {
+	return dispatch => {
+		dispatch(requestDeleteTodos(ids));
+		return Api.deleteTodos(ids)
+			.then(response => {
+				dispatch(fetchTodos());
+			})
+			.catch(error => console.error(`Error removing todos: ${error}`));
+	};
 };
