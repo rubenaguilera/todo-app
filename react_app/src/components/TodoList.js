@@ -31,7 +31,6 @@ class TodoList extends React.Component{
 
   removeSelectedTodos(data) {
     const ids = data.map(todo => todo.id);
-    console.log(ids);
     this.props.dispatch(deleteTodos(ids));
   }
 
@@ -45,14 +44,14 @@ class TodoList extends React.Component{
 
   sortTodos(todos) {
     const compare = (todoA, todoB) => {
-      return moment(todoA.dueDate, 'DD-MM-YYYY') < moment(todoB.dueDate, 'DD-MM-YYYY') ? 1: -1;
+      return moment(todoA.dueDate) < moment(todoB.dueDate) ? 1: -1;
     };
     return todos.sort(compare);
   }
 
   rowOverride(props) {
     let className = '';
-    if (moment(props.data.dueDate, 'DD-MM-YYYY') > moment() && props.data.state !== TODO_STATE_DONE) {
+    if (moment(props.data.dueDate) < moment() && props.data.state !== TODO_STATE_DONE) {
       className = 'table-row-red-highlight';
     } else if(props.data.state === TODO_STATE_DONE) {
       className = 'table-row-green-highlight';

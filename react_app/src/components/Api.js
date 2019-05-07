@@ -3,7 +3,7 @@ import { API_URL } from '../config';
 
 class Api {
 	static getTodos() {
-		return axios.get(`${API_URL}/todos`);
+		return axios.get(`${API_URL}/todos/`);
 	}
 
 	static getTodo(id) {
@@ -11,7 +11,7 @@ class Api {
 	}
 
 	static postTodo(data) {
-		return axios.post(`${API_URL}/todos`, data);
+		return axios.post(`${API_URL}/todos/`, data);
 	}
 
 	static putTodo(data) {
@@ -28,7 +28,7 @@ class Api {
 	}
 
 	static deleteTodos(ids) {
-		return Promise.resolve();
+		return axios.delete(`${API_URL}/todos/delete_bulk?ids=${ids.join(',')}`, ids);
 	}
 
 }

@@ -45,7 +45,7 @@ class AddTodo extends React.Component {
 
 	saveTodo() {
 		const todo = this.state;
-		todo.dueDate = todo.dueDate.format('DD-MM-YYYY');
+		todo.dueDate = todo.dueDate.format('YYYY-MM-DD');
 		this.props.dispatch(saveTodo(todo));
 		this.redirectToList();
 	}
@@ -103,7 +103,7 @@ class AddTodo extends React.Component {
 										<MuiPickersUtilsProvider utils={MomentUtils}>
 											<DatePicker
 												label="Due date"
-												format="DD-MM-YYYY"
+												format="YYYY-MM-DD"
 												value={this.state.dueDate}
 												onChange={(date) => this.handleDateChange(date)}
 												variant="outlined"

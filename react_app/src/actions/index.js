@@ -29,9 +29,8 @@ const receiveTodo = (data) => ({
 	payload: data
 });
 
-const requestDeleteTodos = (ids) => ({
+const requestDeleteTodos = () => ({
 	type: REQUEST_DELETE_TODOS,
-	payload: ids
 });
 
 export const cleanSelectedTodo = () => ({
@@ -92,7 +91,7 @@ export const saveTodo = (todo) => {
 
 export const deleteTodos = (ids) => {
 	return dispatch => {
-		dispatch(requestDeleteTodos(ids));
+		dispatch(requestDeleteTodos());
 		return Api.deleteTodos(ids)
 			.then(response => {
 				dispatch(fetchTodos());
